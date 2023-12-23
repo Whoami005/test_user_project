@@ -1,24 +1,21 @@
 part of 'home_bloc.dart';
 
 class HomeState extends Equatable {
-  final LogicStateStatus status;
-  final UserModel? user;
+  final ({bool isDark, FlexScheme currentScheme}) themeSettings;
 
   const HomeState({
-    this.status = LogicStateStatus.initial,
-    this.user,
+    this.themeSettings = (isDark: false, currentScheme: FlexScheme.material),
   });
 
   @override
-  List<Object?> get props => [status, user];
+  List<Object?> get props => [themeSettings];
 
   HomeState copyWith({
     LogicStateStatus? status,
-    UserModel? user,
+    ({bool isDark, FlexScheme currentScheme})? themeSettings,
   }) {
     return HomeState(
-      status: status ?? this.status,
-      user: user ?? this.user,
+      themeSettings: themeSettings ?? this.themeSettings,
     );
   }
 }

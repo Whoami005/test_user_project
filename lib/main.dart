@@ -1,11 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:routemaster/routemaster.dart';
+import 'package:test_user_project/core/service_locator/injection.dart';
+import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/home/screens/home_screen.dart';
 
 import 'common/theme/app_theme.dart';
+import 'core/bloc/bloc_observer.dart';
 
 void main() {
-  runApp(const MyApp());
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      configureDependencies();
+      Bloc.observer = BlocsObserver();
+
+      return runApp(const MyApp());
+    },
+    (error, stack) {
+      debugPrint('$error, $stack');
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,12 +30,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: getTheme(),
-      routerDelegate: RoutemasterDelegate(routesBuilder: (_) => routes),
-      routeInformationParser: const RoutemasterParser(),
+    return BlocProvider(
+      create: (context) => getIt<HomeBloc>()..add(const ThemeUpdateEvent()),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (_, state) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: getTheme(state.themeSettings),
+            routerDelegate: RoutemasterDelegate(routesBuilder: (_) => routes),
+            routeInformationParser: const RoutemasterParser(),
+          );
+        },
+      ),
     );
   }
 }

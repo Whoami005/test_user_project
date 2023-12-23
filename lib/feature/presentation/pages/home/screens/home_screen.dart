@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_user_project/common/theme/app_theme_import.dart';
+import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<HomeBloc>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Поиск'),
@@ -16,10 +20,13 @@ class HomeScreen extends StatelessWidget {
             tooltip: 'История поиска',
             icon: const Icon(AppIcons.manageSearch),
           ),
-          IconButton(
-            onPressed: () {},
-            tooltip: 'Обновить тему',
-            icon: const Icon(AppIcons.lightbulb),
+          TextButton(
+            style: TextButton.styleFrom(foregroundColor: AppColors.white),
+            onPressed: () => bloc.add(const ThemeUpdateEvent()),
+            onLongPress: () => bloc.add(ThemeUpdateEvent(
+              isDarkTheme: !bloc.state.themeSettings.isDark,
+            )),
+            child: const Icon(AppIcons.lightbulb),
           ),
         ],
       ),
@@ -37,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 style: AppTextStyles.normalText,
                 decoration: const InputDecoration(
+                  suffixIcon: Icon(Icons.search_rounded),
                   hintText: 'Число от 1 до 30',
                   contentPadding: EdgeInsets.all(16),
                   hintStyle: AppTextStyles.normalText,

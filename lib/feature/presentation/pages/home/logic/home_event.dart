@@ -4,11 +4,11 @@ abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
-class SearchUserEvent extends HomeEvent {
-  final int userId;
+class ThemeUpdateEvent extends HomeEvent {
+  final bool? isDarkTheme;
 
-  const SearchUserEvent({required this.userId});
+  const ThemeUpdateEvent({this.isDarkTheme});
 
   @override
-  List<Object?> get props => [userId];
+  List<Object?> get props => [isDarkTheme];
 }

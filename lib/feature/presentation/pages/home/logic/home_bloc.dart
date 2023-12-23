@@ -1,31 +1,36 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
-import 'package:test_user_project/feature/data/models/user_model.dart';
-import 'package:test_user_project/feature/domain/use_cases/search_user_use_case.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
+@injectable
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final SearchUserUseCase _searchUserUseCase;
-
-  HomeBloc(this._searchUserUseCase) : super(const HomeState()) {
-    on<SearchUserEvent>(_searchUser);
+  HomeBloc() : super(const HomeState()) {
+    on<ThemeUpdateEvent>(_updateThemeSettings);
   }
 
-  Future<void> _searchUser(
-    SearchUserEvent event,
+  FlexScheme _getRandomTheme() {
+    const allThemeOptions = FlexScheme.values;
+    final randomValue = Random().nextInt(allThemeOptions.length);
+
+    return allThemeOptions[randomValue];
+  }
+
+  Future<void> _updateThemeSettings(
+    ThemeUpdateEvent event,
     Emitter<HomeState> emit,
   ) async {
-    try {
-      emit(state.copyWith(status: LogicStateStatus.loading));
+    final currentScheme = _getRandomTheme();
 
-      final response = await _searchUserUseCase(event.userId);
-
-      emit(state.copyWith(user: response, status: LogicStateStatus.success));
-    } catch (e) {
-      emit(state.copyWith(status: LogicStateStatus.error));
-    }
+    emit(state.copyWith(themeSettings: (
+      isDark: event.isDarkTheme ?? state.themeSettings.isDark,
+      currentScheme: currentScheme,
+    )));
   }
 }

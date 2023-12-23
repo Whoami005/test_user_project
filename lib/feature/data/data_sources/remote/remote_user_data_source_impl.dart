@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:test_user_project/core/error/exception.dart';
 import 'package:test_user_project/feature/data/data_sources/remote_user_data_source.dart';
 import 'package:test_user_project/feature/data/models/user_model.dart';
 
 typedef _ResponseType = Map<String, dynamic>;
 
+@LazySingleton(as: RemoteUserDataSource)
 class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   final Dio dio;
 

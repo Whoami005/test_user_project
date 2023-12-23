@@ -1,26 +1,26 @@
-import 'dart:math';
-
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
-ThemeData getTheme() {
-  FlexScheme getRandomTheme() {
-    const allThemeOptions = FlexScheme.values;
-    final randomValue = Random().nextInt(allThemeOptions.length);
+ThemeData getTheme(({FlexScheme currentScheme, bool isDark}) themeSettings) {
+  const FlexSubThemesData subThemesData = FlexSubThemesData(
+    inputDecoratorBorderType: FlexInputBorderType.outline,
+    inputDecoratorRadius: 20,
+    bottomNavigationBarType: BottomNavigationBarType.shifting,
+  );
 
-    return allThemeOptions[randomValue];
+  if (themeSettings.isDark) {
+    return FlexThemeData.dark(
+      useMaterial3: true,
+      scheme: themeSettings.currentScheme,
+      subThemesData: subThemesData,
+      tabBarStyle: FlexTabBarStyle.forAppBar,
+    );
   }
-
-  final currentTheme = getRandomTheme();
 
   return FlexThemeData.light(
     useMaterial3: true,
-    scheme: currentTheme,
-    subThemesData: const FlexSubThemesData(
-      inputDecoratorBorderType: FlexInputBorderType.outline,
-      inputDecoratorRadius: 20,
-      bottomNavigationBarType: BottomNavigationBarType.shifting,
-    ),
+    scheme: themeSettings.currentScheme,
+    subThemesData: subThemesData,
     appBarStyle: FlexAppBarStyle.primary,
     tabBarStyle: FlexTabBarStyle.forAppBar,
   );
