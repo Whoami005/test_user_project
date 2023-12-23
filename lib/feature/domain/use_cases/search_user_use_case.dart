@@ -9,5 +9,6 @@ class SearchUserUseCase implements UseCase<UserEntity, int> {
       : _personRepository = personRepository;
 
   @override
-  Future<UserEntity> call(id) async => await _personRepository.searchUser(id);
+  Future<UserEntity> call(int id) async =>
+      await _personRepository.searchUser(id);
 }

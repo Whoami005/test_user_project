@@ -1,4 +1,4 @@
-include: package:flutter_lints/flutter.yaml
+include: package:lint/strict.yaml
 
 analyzer:
   errors:
@@ -6,3 +6,6 @@ analyzer:
 
 linter:
   rules:
+    lines_longer_than_80_chars: true
+    always_specify_types: true
+    sort_pub_dependencies: false

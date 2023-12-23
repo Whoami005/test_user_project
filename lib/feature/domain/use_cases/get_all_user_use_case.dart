@@ -9,6 +9,6 @@ class GetAllUserUseCase implements UseCase<List<UserEntity>, int> {
       : _personRepository = personRepository;
 
   @override
-  Future<List<UserEntity>> call(page) async =>
+  Future<List<UserEntity>> call(int page) async =>
       await _personRepository.getAllUser();
 }
