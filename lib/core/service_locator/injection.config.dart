@@ -12,7 +12,7 @@ import 'package:dio/dio.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:test_user_project/core/service_locator/register_module.dart'
-    as _i11;
+    as _i12;
 import 'package:test_user_project/feature/data/data_sources/remote/remote_user_data_source_impl.dart'
     as _i6;
 import 'package:test_user_project/feature/data/data_sources/remote_user_data_source.dart'
@@ -27,6 +27,8 @@ import 'package:test_user_project/feature/domain/use_cases/search_user_use_case.
     as _i10;
 import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart'
     as _i3;
+import 'package:test_user_project/feature/presentation/pages/users_list/logic/users_list_bloc.dart'
+    as _i11;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -55,8 +57,10 @@ extension GetItInjectableX on _i1.GetIt {
         _i9.GetAllUserUseCase(personRepository: gh<_i7.UserRepository>()));
     gh.lazySingleton<_i10.SearchUserUseCase>(() =>
         _i10.SearchUserUseCase(personRepository: gh<_i7.UserRepository>()));
+    gh.factory<_i11.UsersListBloc>(
+        () => _i11.UsersListBloc(gh<_i9.GetAllUserUseCase>()));
     return this;
   }
 }
 
-class _$RegisterModule extends _i11.RegisterModule {}
+class _$RegisterModule extends _i12.RegisterModule {}

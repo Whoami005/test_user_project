@@ -6,6 +6,7 @@ import 'package:routemaster/routemaster.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/home/screens/home_screen.dart';
+import 'package:test_user_project/feature/presentation/pages/users_list/screens/users_list_screen.dart';
 
 import 'common/theme/app_theme.dart';
 import 'core/bloc/bloc_observer.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      lazy: false,
       create: (context) => getIt<HomeBloc>()..add(const ThemeUpdateEvent()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (_, state) {
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
 final routes = RouteMap(
   routes: {
     '/': (_) => const MaterialPage(child: HomeScreen()),
-    // '/users': (_) => const MaterialPage(child: HomeScreen()),
+    '/users': (_) => const MaterialPage(child: UsersListScreen()),
     // '/user/:id': (_) => const MaterialPage(child: HomeScreen()),
   },
 );

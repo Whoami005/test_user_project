@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
+import 'package:test_user_project/feature/presentation/pages/users_list/screens/users_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(AppIcons.list),
-        onPressed: () {},
+        onPressed: () => UsersListScreen.route(context),
       ),
       body: SafeArea(
         child: Padding(

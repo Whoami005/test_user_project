@@ -14,7 +14,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
   @override
   Future<List<UserModel>> getAllUser(int id) async {
-    final String url = 'users?page=$id?per_page=12';
+    final String url = 'users?page=$id&per_page=12';
 
     final response = await dio.get<_ResponseType>(url);
 
