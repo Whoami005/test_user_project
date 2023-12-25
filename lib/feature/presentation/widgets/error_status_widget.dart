@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
+import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/core/error/exception.dart';
 
 class ErrorStatusWidget extends StatelessWidget {
@@ -17,11 +18,11 @@ class ErrorStatusWidget extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             errorInfo.message,
             maxLines: 2,
+            style: AppTextStyles.title20bold,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),

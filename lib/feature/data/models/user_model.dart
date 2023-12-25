@@ -28,6 +28,7 @@ class UserModel {
 
   UserEntity toEntity() => UserEntity(
         id: id,
+        email: email,
         firstName: firstName,
         lastName: lastName,
         avatar: avatar,

@@ -43,10 +43,7 @@ class UserDetailsScreen extends StatelessWidget {
               : const UserTransitionEvent());
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Идентификатор ${user.id}'),
-          centerTitle: true,
-        ),
+        appBar: AppBar(title: Text('Идентификатор ${user.id}')),
         body: BlocBuilder<UserDetailsBloc, UserDetailsState>(
           builder: (context, state) {
             final bloc = context.read<UserDetailsBloc>();

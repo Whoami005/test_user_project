@@ -6,6 +6,7 @@ ThemeData getTheme(({FlexScheme currentScheme, bool isDark}) themeSettings) {
     inputDecoratorBorderType: FlexInputBorderType.outline,
     inputDecoratorRadius: 20,
     bottomNavigationBarType: BottomNavigationBarType.shifting,
+    appBarCenterTitle: true,
   );
 
   if (themeSettings.isDark) {
