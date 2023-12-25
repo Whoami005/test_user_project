@@ -17,7 +17,11 @@ class UserCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CachedNetworkImageWidget(imageUrl: user.avatar),
+              CachedNetworkImageWidget(
+                imageUrl: user.avatar,
+                width: 130,
+                height: 130,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(

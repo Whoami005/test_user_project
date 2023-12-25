@@ -11,22 +11,18 @@ import 'package:test_user_project/feature/presentation/widgets/error_status_widg
 import 'package:test_user_project/feature/presentation/widgets/shimmer_user_details_widget.dart';
 
 class UserDetailsScreen extends StatelessWidget {
-  final int userId;
-  final UserModel? user;
+  final UserModel user;
 
-  const UserDetailsScreen({super.key, this.user, required this.userId});
+  const UserDetailsScreen({super.key, required this.user});
 
-  const UserDetailsScreen.search({super.key, required this.userId})
-      : user = null;
-
-  static NavigationResult<T> searchRoute<T>({
+  static NavigationResult<T> navigation<T>({
     required BuildContext context,
     required int userId,
   }) =>
       Routemaster.of(context).push('/$userId');
 
   static MaterialPageRoute<T> route<T>({required UserModel user}) {
-    builder(BuildContext _) => UserDetailsScreen(userId: user.id, user: user);
+    builder(BuildContext _) => UserDetailsScreen(user: user);
 
     return MaterialPageRoute(builder: builder, fullscreenDialog: true);
   }
@@ -35,12 +31,22 @@ class UserDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        final bloc = getIt<UserDetailsBloc>(param1: user, param2: userId);
+        final userIsEmpty = user.lastName.isEmpty &&
+            user.firstName.isEmpty &&
+            user.avatar.isEmpty;
 
-        return user == null ? (bloc..add(SearchUser(userId))) : bloc;
+        final bloc = getIt<UserDetailsBloc>(param1: user);
+
+        return bloc
+          ..add(userIsEmpty
+              ? SearchUserEvent(user.id)
+              : const UserTransitionEvent());
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Идентификатор $userId')),
+        appBar: AppBar(
+          title: Text('Идентификатор ${user.id}'),
+          centerTitle: true,
+        ),
         body: BlocBuilder<UserDetailsBloc, UserDetailsState>(
           builder: (context, state) {
             final bloc = context.read<UserDetailsBloc>();
@@ -49,10 +55,11 @@ class UserDetailsScreen extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(10),
               child: switch (state.status) {
-                LogicStateStatus.success when currentUser != null => Column(
+                LogicStateStatus.success => Column(
                     children: [
                       CachedNetworkImageWidget(
                         imageUrl: currentUser.avatar,
+                        height: 350,
                         width: double.infinity,
                         borderRadius: 20,
                       ),
@@ -69,7 +76,8 @@ class UserDetailsScreen extends StatelessWidget {
                   ),
                 LogicStateStatus.error => ErrorStatusWidget(
                     errorInfo: state.errorInfo,
-                    updateStatus: () async => bloc.add(SearchUser(userId)),
+                    updateStatus: () async =>
+                        bloc.add(SearchUserEvent(user.id)),
                   ),
                 _ => const ShimmerUserDetailsWidget(),
               },

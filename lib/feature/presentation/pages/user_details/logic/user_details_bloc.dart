@@ -12,19 +12,18 @@ part 'user_details_state.dart';
 @injectable
 class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
   final SearchUserUseCase _searchUserUseCase;
-  final int userId;
 
   UserDetailsBloc({
-    @factoryParam UserModel? user,
-    @factoryParam required this.userId,
+    @factoryParam required UserModel user,
     required SearchUserUseCase searchUserUseCase,
   })  : _searchUserUseCase = searchUserUseCase,
         super(UserDetailsState(user: user)) {
-    on<SearchUser>(_searchUser);
+    on<SearchUserEvent>(_searchUser);
+    on<UserTransitionEvent>(_userTransition);
   }
 
   Future<void> _searchUser(
-    SearchUser event,
+    SearchUserEvent event,
     Emitter<UserDetailsState> emit,
   ) async {
     try {
@@ -45,4 +44,10 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
       ));
     }
   }
+
+  Future<void> _userTransition(
+    UserTransitionEvent event,
+    Emitter<UserDetailsState> emit,
+  ) async =>
+      emit(state.copyWith(status: LogicStateStatus.success));
 }

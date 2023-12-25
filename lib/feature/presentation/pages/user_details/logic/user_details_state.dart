@@ -2,13 +2,13 @@ part of 'user_details_bloc.dart';
 
 final class UserDetailsState extends Equatable {
   final LogicStateStatus status;
-  final UserModel? user;
+  final UserModel user;
   final AppException errorInfo;
 
   const UserDetailsState({
     this.status = LogicStateStatus.initial,
-    this.user,
     this.errorInfo = const DefaultException(),
+    required this.user,
   });
 
   @override

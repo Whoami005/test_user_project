@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
+import 'package:test_user_project/feature/presentation/pages/home/widgets/text_field_widget.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/screens/users_list_screen.dart';
 
@@ -59,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(AppIcons.list),
-        onPressed: () => UsersListScreen.route(context),
+        onPressed: () => UsersListScreen.navigation(context),
       ),
       body: SafeArea(
         child: Padding(
@@ -67,33 +68,26 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
+              SearchTextField(
                 controller: _controller,
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.search,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                style: AppTextStyles.normalText,
+                userId: userId,
+                isButtonEnabled: isButtonEnabled,
+                checkRestrictions: checkRestrictions,
                 onChanged: (text) => setState(() {}),
-                validator: (_) {
-                  final isNotEmpty = _controller.text.isNotEmpty;
-
-                  if (isNotEmpty && userId == -1) return 'Неверный формат';
-
-                  if (isNotEmpty && !checkRestrictions) return 'Неверное число';
-
-                  return null;
+                textFieldClear: () => setState(() => _controller.clear()),
+                onFieldSubmitted: (text) {
+                  if (isButtonEnabled) {
+                    UserDetailsScreen.navigation(
+                      context: context,
+                      userId: userId,
+                    );
+                  }
                 },
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.search_rounded),
-                  hintText: 'Число от 1 до 30',
-                  contentPadding: EdgeInsets.all(16),
-                  hintStyle: AppTextStyles.normalText,
-                ),
               ),
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: isButtonEnabled
-                    ? () => UserDetailsScreen.searchRoute(
+                    ? () => UserDetailsScreen.navigation(
                           context: context,
                           userId: userId,
                         )

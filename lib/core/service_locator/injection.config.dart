@@ -60,13 +60,12 @@ extension GetItInjectableX on _i1.GetIt {
         _i9.GetAllUserUseCase(personRepository: gh<_i7.UserRepository>()));
     gh.lazySingleton<_i10.SearchUserUseCase>(() =>
         _i10.SearchUserUseCase(personRepository: gh<_i7.UserRepository>()));
-    gh.factoryParam<_i11.UserDetailsBloc, _i12.UserModel?, int>((
+    gh.factoryParam<_i11.UserDetailsBloc, _i12.UserModel, dynamic>((
       user,
-      userId,
+      _,
     ) =>
         _i11.UserDetailsBloc(
           user: user,
-          userId: userId,
           searchUserUseCase: gh<_i10.SearchUserUseCase>(),
         ));
     gh.factory<_i13.UsersListBloc>(

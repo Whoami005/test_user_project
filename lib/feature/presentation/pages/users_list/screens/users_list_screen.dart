@@ -11,7 +11,7 @@ import 'package:test_user_project/feature/presentation/widgets/shimmer_card_widg
 class UsersListScreen extends StatelessWidget {
   const UsersListScreen({super.key});
 
-  static NavigationResult<T> route<T>(BuildContext context) =>
+  static NavigationResult<T> navigation<T>(BuildContext context) =>
       Routemaster.of(context).push('/users');
 
   @override

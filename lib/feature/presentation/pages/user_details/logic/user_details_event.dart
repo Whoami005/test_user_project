@@ -4,11 +4,18 @@ sealed class UserDetailsEvent extends Equatable {
   const UserDetailsEvent();
 }
 
-final class SearchUser extends UserDetailsEvent {
+final class SearchUserEvent extends UserDetailsEvent {
   final int userId;
 
-  const SearchUser(this.userId);
+  const SearchUserEvent(this.userId);
 
   @override
   List<Object?> get props => [userId];
+}
+
+final class UserTransitionEvent extends UserDetailsEvent {
+  const UserTransitionEvent();
+
+  @override
+  List<Object?> get props => [];
 }
