@@ -2,7 +2,7 @@ part of 'user_details_bloc.dart';
 
 final class UserDetailsState extends Equatable {
   final LogicStateStatus status;
-  final UserModel user;
+  final UserEntity user;
   final AppException errorInfo;
 
   const UserDetailsState({
@@ -16,7 +16,7 @@ final class UserDetailsState extends Equatable {
 
   UserDetailsState copyWith({
     LogicStateStatus? status,
-    UserModel? user,
+    UserEntity? user,
     AppException? errorInfo,
   }) {
     return UserDetailsState(

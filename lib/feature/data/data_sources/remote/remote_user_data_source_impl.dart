@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:test_user_project/core/error/exception.dart';
 import 'package:test_user_project/feature/data/data_sources/remote_user_data_source.dart';
 import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 
 typedef _ResponseType = Map<String, dynamic>;
 
@@ -13,16 +14,16 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   const RemoteUserDataSourceImpl({required this.dio});
 
   @override
-  Future<List<UserModel>> getAllUser(int id) async {
+  Future<List<UserEntity>> getAllUser(int id) async {
     final String url = 'users?page=$id&per_page=12';
 
     final response = await dio.get<_ResponseType>(url);
 
     if (response.statusCode == 200) {
-      const fromJson = UserModel.fromJson;
       final data = (response.data?['data'] ?? []) as List;
+      fromJson(_ResponseType user) => UserModel.fromJson(user).toEntity();
 
-      final users = <UserModel>[for (final user in data) fromJson(user)];
+      final users = <UserEntity>[for (final user in data) fromJson(user)];
 
       return users;
     } else {
@@ -33,7 +34,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   }
 
   @override
-  Future<UserModel> searchUser(int id) async {
+  Future<UserEntity> searchUser(int id) async {
     final String url = 'users/$id';
 
     final response = await dio.get(url);
@@ -41,7 +42,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     if (response.statusCode == 200) {
       final data = (response.data?['data'] ?? {}) as _ResponseType;
 
-      return UserModel.fromJson(data);
+      return UserModel.fromJson(data).toEntity();
     } else if (response.statusCode == 404) {
       throw const NotFoundException();
     } else {

@@ -17,9 +17,10 @@ import 'package:test_user_project/feature/data/data_sources/remote/remote_user_d
     as _i6;
 import 'package:test_user_project/feature/data/data_sources/remote_user_data_source.dart'
     as _i5;
-import 'package:test_user_project/feature/data/models/user_model.dart' as _i12;
 import 'package:test_user_project/feature/data/repositories/remote/remote_user_repository.dart'
     as _i8;
+import 'package:test_user_project/feature/domain/entities/user_entity.dart'
+    as _i12;
 import 'package:test_user_project/feature/domain/repositories/user_repository.dart'
     as _i7;
 import 'package:test_user_project/feature/domain/use_cases/get_all_user_use_case.dart'
@@ -60,7 +61,7 @@ extension GetItInjectableX on _i1.GetIt {
         _i9.GetAllUserUseCase(personRepository: gh<_i7.UserRepository>()));
     gh.lazySingleton<_i10.SearchUserUseCase>(() =>
         _i10.SearchUserUseCase(personRepository: gh<_i7.UserRepository>()));
-    gh.factoryParam<_i11.UserDetailsBloc, _i12.UserModel, dynamic>((
+    gh.factoryParam<_i11.UserDetailsBloc, _i12.UserEntity, dynamic>((
       user,
       _,
     ) =>

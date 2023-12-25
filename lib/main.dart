@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
-import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/home/screens/home_screen.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
@@ -57,12 +57,10 @@ final routes = RouteMap(
     '/': (_) => const MaterialPage(child: HomeScreen()),
     '/:id': (route) {
       final id = int.parse(route.pathParameters['id']!);
-      final user =
-          UserModel(id: id, email: '', firstName: '', lastName: '', avatar: '');
 
       return MaterialPage(
         fullscreenDialog: true,
-        child: UserDetailsScreen(user: user),
+        child: UserDetailsScreen(user: UserEntity(id: id)),
       );
     },
     '/users': (_) => const MaterialPage(child: UsersListScreen()),

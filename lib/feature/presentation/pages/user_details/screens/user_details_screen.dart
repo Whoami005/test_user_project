@@ -4,14 +4,14 @@ import 'package:routemaster/routemaster.dart';
 import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
-import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/logic/user_details_bloc.dart';
 import 'package:test_user_project/feature/presentation/widgets/cached_network_image_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/shimmer_user_details_widget.dart';
 
 class UserDetailsScreen extends StatelessWidget {
-  final UserModel user;
+  final UserEntity user;
 
   const UserDetailsScreen({super.key, required this.user});
 
@@ -21,7 +21,7 @@ class UserDetailsScreen extends StatelessWidget {
   }) =>
       Routemaster.of(context).push('/$userId');
 
-  static MaterialPageRoute<T> route<T>({required UserModel user}) {
+  static MaterialPageRoute<T> route<T>({required UserEntity user}) {
     builder(BuildContext _) => UserDetailsScreen(user: user);
 
     return MaterialPageRoute(builder: builder, fullscreenDialog: true);

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/error/exception.dart';
-import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/domain/use_cases/get_all_user_use_case.dart';
 
 part 'users_list_event.dart';

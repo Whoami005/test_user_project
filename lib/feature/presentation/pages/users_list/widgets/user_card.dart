@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:test_user_project/common/theme/app_theme_import.dart';
-import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
 import 'package:test_user_project/feature/presentation/widgets/cached_network_image_widget.dart';
 
 class UserCard extends StatelessWidget {
-  final UserModel user;
+  final UserEntity user;
 
   const UserCard({super.key, required this.user});
 

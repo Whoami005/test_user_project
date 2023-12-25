@@ -1,7 +1,7 @@
-import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 
 abstract interface class UserRepository {
-  Future<List<UserModel>> getAllUser(int page);
+  Future<List<UserEntity>> getAllUser(int page);
 
-  Future<UserModel> searchUser(int id);
+  Future<UserEntity> searchUser(int id);
 }
