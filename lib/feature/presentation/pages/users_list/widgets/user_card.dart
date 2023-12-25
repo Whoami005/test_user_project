@@ -1,7 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/feature/data/models/user_model.dart';
+import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
+import 'package:test_user_project/feature/presentation/widgets/cached_network_image_widget.dart';
 
 class UserCard extends StatelessWidget {
   final UserModel user;
@@ -16,15 +17,7 @@ class UserCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(
-                  imageUrl: user.avatar,
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) =>
-                      const Center(child: CircularProgressIndicator()),
-                ),
-              ),
+              CachedNetworkImageWidget(imageUrl: user.avatar),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -45,8 +38,10 @@ class UserCard extends StatelessWidget {
           ),
         ),
       ),
-      // onTap: () async =>
-      //     await context.router.push(PersonDetailsRoute(person: person)),
+      onTap: () async => await Navigator.push(
+        context,
+        UserDetailsScreen.route(user: user),
+      ),
     );
   }
 }

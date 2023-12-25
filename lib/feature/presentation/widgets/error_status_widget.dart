@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
+import 'package:test_user_project/core/error/exception.dart';
 
 class ErrorStatusWidget extends StatelessWidget {
-  final String errorMessage;
+  final AppException errorInfo;
   final Future<void> Function() updateStatus;
 
   const ErrorStatusWidget({
     super.key,
-    required this.errorMessage,
+    required this.errorInfo,
     required this.updateStatus,
   });
 
@@ -18,13 +20,20 @@ class ErrorStatusWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            errorMessage,
+            errorInfo.message,
             maxLines: 2,
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () async => await updateStatus(),
-            child: const Text('Обновить'),
+            onPressed: () async => switch (errorInfo) {
+              NotFoundException() => Routemaster.of(context).pop(),
+              _ => await updateStatus(),
+            },
+            child: switch (errorInfo) {
+              NotFoundException() => const Text('Перейти к поиску'),
+              _ => const Text('Обновить'),
+            },
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:routemaster/routemaster.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/presentation/pages/home/logic/home_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/home/screens/home_screen.dart';
+import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/screens/users_list_screen.dart';
 
 import 'common/theme/app_theme.dart';
@@ -50,9 +51,17 @@ class MyApp extends StatelessWidget {
 }
 
 final routes = RouteMap(
+  onUnknownRoute: (_) => const Redirect('/'),
   routes: {
     '/': (_) => const MaterialPage(child: HomeScreen()),
+    '/:id': (route) {
+      final id = int.parse(route.pathParameters['id']!);
+
+      return MaterialPage(
+        fullscreenDialog: true,
+        child: UserDetailsScreen.search(userId: id),
+      );
+    },
     '/users': (_) => const MaterialPage(child: UsersListScreen()),
-    // '/user/:id': (_) => const MaterialPage(child: HomeScreen()),
   },
 );

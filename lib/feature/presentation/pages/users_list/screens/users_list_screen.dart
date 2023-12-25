@@ -11,7 +11,8 @@ import 'package:test_user_project/feature/presentation/widgets/shimmer_card_widg
 class UsersListScreen extends StatelessWidget {
   const UsersListScreen({super.key});
 
-  static route(BuildContext context) => Routemaster.of(context).push('/users');
+  static NavigationResult<T> route<T>(BuildContext context) =>
+      Routemaster.of(context).push('/users');
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class UsersListScreen extends StatelessWidget {
                     separatorBuilder: (_, __) => const SizedBox(height: 10),
                   ),
                 LogicStateStatus.error => ErrorStatusWidget(
-                    errorMessage: state.errorMessage,
+                    errorInfo: state.errorInfo,
                     updateStatus: () async => bloc.add(const GetUsersEvent()),
                   ),
                 _ => ListView.builder(

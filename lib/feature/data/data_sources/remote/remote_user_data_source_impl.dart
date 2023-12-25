@@ -36,14 +36,16 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   Future<UserModel> searchUser(int id) async {
     final String url = 'users/$id';
 
-    final response = await dio.get<_ResponseType>(url);
+    final response = await dio.get(url);
 
     if (response.statusCode == 200) {
-      final data = (response.data?['data'] ?? []) as _ResponseType;
+      final data = (response.data?['data'] ?? {}) as _ResponseType;
 
       return UserModel.fromJson(data);
+    } else if (response.statusCode == 404) {
+      throw const NotFoundException();
     } else {
-      const String message = 'Не удалось найти пользователя';
+      const message = 'Не удалось получить данные пользователя';
 
       throw const ServerException(message: message);
     }

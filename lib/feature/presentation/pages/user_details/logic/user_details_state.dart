@@ -1,27 +1,27 @@
-part of 'users_list_bloc.dart';
+part of 'user_details_bloc.dart';
 
-final class UsersListState extends Equatable {
+final class UserDetailsState extends Equatable {
   final LogicStateStatus status;
-  final List<UserModel> users;
+  final UserModel? user;
   final AppException errorInfo;
 
-  const UsersListState({
+  const UserDetailsState({
     this.status = LogicStateStatus.initial,
-    this.users = const [],
+    this.user,
     this.errorInfo = const DefaultException(),
   });
 
   @override
-  List<Object?> get props => [status, users, errorInfo];
+  List<Object?> get props => [status, user, errorInfo];
 
-  UsersListState copyWith({
+  UserDetailsState copyWith({
     LogicStateStatus? status,
-    List<UserModel>? users,
+    UserModel? user,
     AppException? errorInfo,
   }) {
-    return UsersListState(
+    return UserDetailsState(
       status: status ?? this.status,
-      users: users ?? this.users,
+      user: user ?? this.user,
       errorInfo: errorInfo ?? this.errorInfo,
     );
   }

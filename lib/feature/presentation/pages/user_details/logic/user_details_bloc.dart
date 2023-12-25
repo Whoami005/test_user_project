@@ -4,33 +4,39 @@ import 'package:injectable/injectable.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/error/exception.dart';
 import 'package:test_user_project/feature/data/models/user_model.dart';
-import 'package:test_user_project/feature/domain/use_cases/get_all_user_use_case.dart';
+import 'package:test_user_project/feature/domain/use_cases/search_user_use_case.dart';
 
-part 'users_list_event.dart';
-part 'users_list_state.dart';
+part 'user_details_event.dart';
+part 'user_details_state.dart';
 
 @injectable
-class UsersListBloc extends Bloc<UsersListEvent, UsersListState> {
-  final GetAllUserUseCase _getAllUserUseCase;
+class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
+  final SearchUserUseCase _searchUserUseCase;
+  final int userId;
 
-  UsersListBloc(this._getAllUserUseCase) : super(const UsersListState()) {
-    on<GetUsersEvent>(_getAllUsers);
+  UserDetailsBloc({
+    @factoryParam UserModel? user,
+    @factoryParam required this.userId,
+    required SearchUserUseCase searchUserUseCase,
+  })  : _searchUserUseCase = searchUserUseCase,
+        super(UserDetailsState(user: user)) {
+    on<SearchUser>(_searchUser);
   }
 
-  Future<void> _getAllUsers(
-    GetUsersEvent event,
-    Emitter<UsersListState> emit,
+  Future<void> _searchUser(
+    SearchUser event,
+    Emitter<UserDetailsState> emit,
   ) async {
     try {
       emit(state.copyWith(status: LogicStateStatus.loading));
 
-      final response = await _getAllUserUseCase(1);
+      final response = await _searchUserUseCase(event.userId);
 
       await Future.delayed(const Duration(seconds: 1));
 
       emit(state.copyWith(
         status: LogicStateStatus.success,
-        users: response,
+        user: response,
       ));
     } catch (e) {
       emit(state.copyWith(
