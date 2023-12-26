@@ -93,7 +93,10 @@ class UserSearchHistoryBloc
 
       emit(state.copyWith(users: users));
     } catch (e) {
-      emit(state.copyWith(status: LogicStateStatus.error));
+      emit(state.copyWith(
+        status: LogicStateStatus.error,
+        errorInfo: AppException.errorHandler(e),
+      ));
     }
   }
 
@@ -114,7 +117,10 @@ class UserSearchHistoryBloc
 
       emit(state.copyWith(users: users));
     } catch (e) {
-      emit(state.copyWith(status: LogicStateStatus.error));
+      emit(state.copyWith(
+        status: LogicStateStatus.error,
+        errorInfo: AppException.errorHandler(e),
+      ));
     }
   }
 }

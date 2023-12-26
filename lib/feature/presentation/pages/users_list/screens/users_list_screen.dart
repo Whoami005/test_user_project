@@ -6,6 +6,7 @@ import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/logic/users_list_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/widgets/shimmer_card.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/widgets/user_card.dart';
+import 'package:test_user_project/feature/presentation/widgets/empty_data_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
 
 class UsersListScreen extends StatelessWidget {
@@ -27,6 +28,8 @@ class UsersListScreen extends StatelessWidget {
             return SafeArea(
               bottom: false,
               child: switch (state.status) {
+                LogicStateStatus.success when state.users.isEmpty =>
+                  const EmptyDataWidget(),
                 LogicStateStatus.success => ListView.separated(
                     itemCount: state.users.length,
                     itemBuilder: (_, index) {

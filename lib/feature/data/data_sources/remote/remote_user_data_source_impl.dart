@@ -17,38 +17,38 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   Future<List<UserEntity>> getAllUser(int id) async {
     final String url = 'users?page=$id&per_page=12';
 
-    final response = await dio.get<_ResponseType>(url);
-
-    if (response.statusCode == 200) {
+    return await dio.get<_ResponseType>(url).then((response) {
       final data = (response.data?['data'] ?? []) as List;
       fromJson(_ResponseType user) => UserModel.fromJson(user).toEntity();
 
       final users = <UserEntity>[for (final user in data) fromJson(user)];
 
       return users;
-    } else {
+    }, onError: (e) {
       const String message = 'Не удалось получить данные пользователей';
 
       throw const ServerException(message: message);
-    }
+    });
   }
 
   @override
   Future<UserEntity> searchUser(int id) async {
     final String url = 'users/$id';
 
-    final response = await dio.get(url);
-
-    if (response.statusCode == 200) {
+    return await dio.get<_ResponseType>(url).then((response) {
       final data = (response.data?['data'] ?? {}) as _ResponseType;
 
       return UserModel.fromJson(data).toEntity();
-    } else if (response.statusCode == 404) {
-      throw const NotFoundException();
-    } else {
-      const message = 'Не удалось получить данные пользователя';
+    }, onError: (e) {
+      final isDioException = e is DioException;
 
-      throw const ServerException(message: message);
-    }
+      if (isDioException && e.response?.statusCode == 404) {
+        throw const NotFoundException(message: 'Пользователя не существует');
+      } else {
+        const message = 'Не удалось получить данные пользователя';
+
+        throw const ServerException(message: message);
+      }
+    });
   }
 }

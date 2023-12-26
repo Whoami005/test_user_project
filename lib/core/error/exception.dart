@@ -1,20 +1,12 @@
-import 'package:dio/dio.dart';
-
 sealed class AppException implements Exception {
   final String message;
 
   const AppException({required this.message});
 
   static AppException errorHandler(Object error) {
-    ///Дополнительная обработка ошибки 404 (проблемы с Dio)
-    final bool notFoundException =
-        error is DioException && error.response?.statusCode == 404;
-
     return switch (error) {
       AppException() => error,
-      _ => notFoundException
-          ? const NotFoundException()
-          : const DefaultException(),
+      _ => const DefaultException(),
     };
   }
 }
@@ -28,7 +20,7 @@ class ServerException extends AppException {
 }
 
 class NotFoundException extends AppException {
-  const NotFoundException({super.message = 'Пользователя не существует'});
+  const NotFoundException({super.message = 'Страница не найдена'});
 }
 
 class ConnectionException extends AppException {

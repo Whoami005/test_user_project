@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_user_project/common/theme/app_text_styles.dart';
-import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/presentation/pages/users_search_history/logic/user_search_history_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/users_search_history/widgets/user_list_tile.dart';
 import 'package:test_user_project/feature/presentation/pages/users_search_history/widgets/user_search_widget.dart';
+import 'package:test_user_project/feature/presentation/widgets/empty_data_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
 
 class SearchHistoryBottomSheet extends StatelessWidget {
@@ -41,12 +40,7 @@ class SearchHistoryBottomSheet extends StatelessWidget {
 
                 return switch (state.status) {
                   LogicStateStatus.success when state.users.isEmpty =>
-                    const Center(
-                      child: Text(
-                        'Пусто...',
-                        style: AppTextStyles.title20bold,
-                      ),
-                    ),
+                    const EmptyDataWidget(),
                   LogicStateStatus.success => ListView.separated(
                       itemBuilder: (_, index) {
                         final user = state.users[index];
