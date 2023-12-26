@@ -17,7 +17,7 @@ void main() {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      configureDependencies();
+      await configureDependencies();
       Bloc.observer = BlocsObserver();
 
       return runApp(const MyApp());

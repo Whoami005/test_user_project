@@ -5,12 +5,11 @@ import 'package:test_user_project/feature/domain/repositories/user_repository.da
 
 @lazySingleton
 class SearchUserUseCase implements UseCase<UserEntity, int> {
-  final UserRepository _personRepository;
+  final UserRepository _repository;
 
-  const SearchUserUseCase({required UserRepository personRepository})
-      : _personRepository = personRepository;
+  const SearchUserUseCase({required UserRepository repository})
+      : _repository = repository;
 
   @override
-  Future<UserEntity> call(int id) async =>
-      await _personRepository.searchUser(id);
+  Future<UserEntity> call(int id) async => await _repository.searchUser(id);
 }

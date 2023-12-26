@@ -31,8 +31,6 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
 
       final response = await _searchUserUseCase(event.userId);
 
-      await Future.delayed(const Duration(seconds: 1));
-
       emit(state.copyWith(
         status: LogicStateStatus.success,
         user: response,

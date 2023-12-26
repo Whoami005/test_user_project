@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmerCardWidget extends StatelessWidget {
-  const ShimmerCardWidget({super.key});
+class ShimmerCard extends StatelessWidget {
+  const ShimmerCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Shimmer.fromColors(
-      baseColor: Theme.of(context).cardColor,
-      highlightColor: Theme.of(context).primaryColor,
+      baseColor: theme.cardColor,
+      highlightColor: theme.primaryColor,
       child: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 3, vertical: 10),
         child: Row(

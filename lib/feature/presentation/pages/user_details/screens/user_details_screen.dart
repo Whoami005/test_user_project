@@ -8,7 +8,7 @@ import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/logic/user_details_bloc.dart';
 import 'package:test_user_project/feature/presentation/widgets/cached_network_image_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
-import 'package:test_user_project/feature/presentation/widgets/shimmer_user_details_widget.dart';
+import 'package:test_user_project/feature/presentation/pages/user_details/widgets/shimmer_user_details_widget.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   final UserEntity user;
@@ -21,10 +21,17 @@ class UserDetailsScreen extends StatelessWidget {
   }) =>
       Routemaster.of(context).push('/$userId');
 
-  static MaterialPageRoute<T> route<T>({required UserEntity user}) {
-    builder(BuildContext _) => UserDetailsScreen(user: user);
-
-    return MaterialPageRoute(builder: builder, fullscreenDialog: true);
+  static Future<void> showDialog({
+    required BuildContext context,
+    required UserEntity user,
+  }) async {
+    await showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      elevation: 0,
+      context: context,
+      builder: (_) => UserDetailsScreen(user: user),
+    );
   }
 
   @override
@@ -47,28 +54,28 @@ class UserDetailsScreen extends StatelessWidget {
         body: BlocBuilder<UserDetailsBloc, UserDetailsState>(
           builder: (context, state) {
             final bloc = context.read<UserDetailsBloc>();
-            final currentUser = state.user;
 
             return Padding(
               padding: const EdgeInsets.all(10),
               child: switch (state.status) {
-                LogicStateStatus.success => Column(
+                LogicStateStatus.success => ListView(
                     children: [
                       CachedNetworkImageWidget(
-                        imageUrl: currentUser.avatar,
-                        height: 350,
+                        imageUrl: state.user.avatar,
                         width: double.infinity,
                         borderRadius: 20,
                       ),
                       const SizedBox(height: 10),
-                      Text(
-                        '${currentUser.firstName} ${currentUser.lastName}',
-                        style: AppTextStyles.title20bold,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                      Center(
+                        child: Text(
+                          '${state.user.firstName} ${state.user.lastName}',
+                          style: AppTextStyles.title20bold,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
                       const SizedBox(height: 10),
-                      Text(currentUser.email),
+                      Center(child: Text(state.user.email)),
                     ],
                   ),
                 LogicStateStatus.error => ErrorStatusWidget(

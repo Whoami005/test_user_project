@@ -23,33 +23,38 @@ class SearchTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: _controller,
-      keyboardType: TextInputType.number,
-      textInputAction: TextInputAction.search,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: AppTextStyles.normalText,
-      onChanged: onChanged,
-      onFieldSubmitted: onFieldSubmitted,
-      validator: (_) {
-        final isNotEmpty = _controller.text.isNotEmpty;
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600),
+        child: TextFormField(
+          controller: _controller,
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.search,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          style: AppTextStyles.normalText,
+          onChanged: onChanged,
+          onFieldSubmitted: onFieldSubmitted,
+          validator: (_) {
+            final isNotEmpty = _controller.text.trim().isNotEmpty;
 
-        if (isNotEmpty && userId == -1) return 'Неверный формат';
+            if (isNotEmpty && userId == -1) return 'Неверный формат';
 
-        if (isNotEmpty && !checkRestrictions) return 'Неверное число';
+            if (isNotEmpty && !checkRestrictions) return 'Неверное число';
 
-        return null;
-      },
-      decoration: InputDecoration(
-        suffixIcon: _controller.text.isEmpty
-            ? const Icon(AppIcons.searchRounded)
-            : IconButton(
-                onPressed: textFieldClear,
-                icon: const Icon(AppIcons.clear),
-              ),
-        hintText: 'Число от 1 до 30',
-        contentPadding: const EdgeInsets.all(16),
-        hintStyle: AppTextStyles.normalText,
+            return null;
+          },
+          decoration: InputDecoration(
+            suffixIcon: _controller.text.isEmpty
+                ? const Icon(AppIcons.searchRounded)
+                : IconButton(
+                    onPressed: textFieldClear,
+                    icon: const Icon(AppIcons.clear),
+                  ),
+            hintText: 'Число от 1 до 30',
+            contentPadding: const EdgeInsets.all(16),
+            hintStyle: AppTextStyles.normalText,
+          ),
+        ),
       ),
     );
   }

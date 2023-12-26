@@ -6,7 +6,7 @@ import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/logic/users_list_bloc.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/widgets/user_card.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
-import 'package:test_user_project/feature/presentation/widgets/shimmer_card_widget.dart';
+import 'package:test_user_project/feature/presentation/pages/users_list/widgets/shimmer_card.dart';
 
 class UsersListScreen extends StatelessWidget {
   const UsersListScreen({super.key});
@@ -41,7 +41,7 @@ class UsersListScreen extends StatelessWidget {
                     updateStatus: () async => bloc.add(const GetUsersEvent()),
                   ),
                 _ => ListView.builder(
-                    itemBuilder: (_, __) => const ShimmerCardWidget(),
+                    itemBuilder: (_, __) => const ShimmerCard(),
                   ),
               },
             );

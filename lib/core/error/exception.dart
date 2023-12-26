@@ -30,3 +30,7 @@ class ServerException extends AppException {
 class NotFoundException extends AppException {
   const NotFoundException({super.message = 'Пользователя не существует'});
 }
+
+class ConnectionException extends AppException {
+  const ConnectionException({super.message = 'Нет подключения к сети'});
+}

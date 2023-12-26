@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserEntity {
+  @Id(assignable: true)
   int get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
@@ -34,7 +35,11 @@ abstract class $UserEntityCopyWith<$Res> {
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
   $Res call(
-      {int id, String email, String firstName, String lastName, String avatar});
+      {@Id(assignable: true) int id,
+      String email,
+      String firstName,
+      String lastName,
+      String avatar});
 }
 
 /// @nodoc
@@ -90,7 +95,11 @@ abstract class _$$UserEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id, String email, String firstName, String lastName, String avatar});
+      {@Id(assignable: true) int id,
+      String email,
+      String firstName,
+      String lastName,
+      String avatar});
 }
 
 /// @nodoc
@@ -137,15 +146,17 @@ class __$$UserEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 
+@Entity(realClass: UserEntity)
 class _$UserEntityImpl implements _UserEntity {
   const _$UserEntityImpl(
-      {required this.id,
+      {@Id(assignable: true) required this.id,
       this.email = '',
       this.firstName = '',
       this.lastName = '',
       this.avatar = ''});
 
   @override
+  @Id(assignable: true)
   final int id;
   @override
   @JsonKey()
@@ -192,13 +203,14 @@ class _$UserEntityImpl implements _UserEntity {
 
 abstract class _UserEntity implements UserEntity {
   const factory _UserEntity(
-      {required final int id,
+      {@Id(assignable: true) required final int id,
       final String email,
       final String firstName,
       final String lastName,
       final String avatar}) = _$UserEntityImpl;
 
   @override
+  @Id(assignable: true)
   int get id;
   @override
   String get email;

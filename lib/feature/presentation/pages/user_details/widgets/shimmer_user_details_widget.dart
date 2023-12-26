@@ -6,9 +6,11 @@ class ShimmerUserDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Shimmer.fromColors(
-      baseColor: Theme.of(context).cardColor,
-      highlightColor: Theme.of(context).primaryColor,
+      baseColor: theme.cardColor,
+      highlightColor: theme.primaryColor,
       child: const Column(
         children: [
           SizedBox(

@@ -5,6 +5,7 @@ import 'package:test_user_project/feature/presentation/pages/home/logic/home_blo
 import 'package:test_user_project/feature/presentation/pages/home/widgets/text_field_widget.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/screens/users_list_screen.dart';
+import 'package:test_user_project/feature/presentation/pages/users_search_history/screens/user_search_history_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,9 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool get checkRestrictions => userId >= 1 && userId <= 30;
 
-  bool get isButtonEnabled => _controller.text.isNotEmpty && checkRestrictions;
+  bool get isButtonEnabled =>
+      _controller.text.trim().isNotEmpty && checkRestrictions;
 
-  int get userId => int.tryParse(_controller.text) ?? -1;
+  int get userId => int.tryParse(_controller.text.trim()) ?? -1;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Поиск'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async =>
+                await SearchHistoryBottomSheet.showDialog(context),
             tooltip: 'История поиска',
             icon: const Icon(AppIcons.manageSearch),
           ),

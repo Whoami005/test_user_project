@@ -42,10 +42,8 @@ class UserCard extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () async => await Navigator.push(
-        context,
-        UserDetailsScreen.route(user: user),
-      ),
+      onTap: () async =>
+          await UserDetailsScreen.showDialog(context: context, user: user),
     );
   }
 }
