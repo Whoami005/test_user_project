@@ -20,4 +20,11 @@ class LocalUserHistoryRepository implements UserHistoryRepository {
 
   @override
   Future<void> removeHistoryUser(int id) => _localUserDataSource.removeUser(id);
+
+  @override
+  Future<List<UserEntity>> searchHistoryUser({
+    required String firstName,
+    String lastName = '',
+  }) async =>
+      _localUserDataSource.searchUser(firstName: firstName, lastName: lastName);
 }

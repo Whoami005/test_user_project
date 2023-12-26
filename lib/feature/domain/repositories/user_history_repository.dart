@@ -6,4 +6,9 @@ abstract interface class UserHistoryRepository {
   Future<void> clearHistoryUsers();
 
   Future<void> removeHistoryUser(int id);
+
+  Future<List<UserEntity>> searchHistoryUser({
+    required String firstName,
+    required String lastName,
+  });
 }

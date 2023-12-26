@@ -33,6 +33,7 @@ class SearchTextField extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           style: AppTextStyles.normalText,
           onChanged: onChanged,
+          onTapOutside: (_) => FocusScope.of(context).unfocus(),
           onFieldSubmitted: onFieldSubmitted,
           validator: (_) {
             final isNotEmpty = _controller.text.trim().isNotEmpty;

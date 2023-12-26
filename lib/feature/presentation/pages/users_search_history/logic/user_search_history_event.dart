@@ -11,8 +11,8 @@ final class GetHistoryUsersEvent extends UserSearchHistoryEvent {
   List<Object?> get props => [];
 }
 
-final class SearchHistoryClearEvent extends UserSearchHistoryEvent {
-  const SearchHistoryClearEvent();
+final class ClearSearchHistoryEvent extends UserSearchHistoryEvent {
+  const ClearSearchHistoryEvent();
 
   @override
   List<Object?> get props => [];
@@ -25,4 +25,13 @@ final class RemoveSearchUserEvent extends UserSearchHistoryEvent {
 
   @override
   List<Object?> get props => [user];
+}
+
+final class SearchUserEvent extends UserSearchHistoryEvent {
+  final String text;
+
+  const SearchUserEvent(this.text);
+
+  @override
+  List<Object?> get props => [text];
 }

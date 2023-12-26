@@ -8,4 +8,9 @@ abstract interface class LocalUserDataSource {
   Future<void> clearCache();
 
   Future<void> removeUser(int id);
+
+  Future<List<UserEntity>> searchUser({
+    required String firstName,
+    required String lastName,
+  });
 }

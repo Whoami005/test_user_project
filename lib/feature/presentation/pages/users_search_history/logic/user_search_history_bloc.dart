@@ -8,6 +8,7 @@ import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/domain/use_cases/clear_history_users_use_case.dart';
 import 'package:test_user_project/feature/domain/use_cases/get_history_users_use_case.dart';
 import 'package:test_user_project/feature/domain/use_cases/remove_user_from_history_use_case.dart';
+import 'package:test_user_project/feature/domain/use_cases/search_history_user_use_case.dart';
 
 part 'user_search_history_event.dart';
 part 'user_search_history_state.dart';
@@ -18,18 +19,22 @@ class UserSearchHistoryBloc
   final GetHistoryUsersUseCase _getHistoryUsersUseCase;
   final ClearHistoryUsersUseCase _clearHistoryUsersUseCase;
   final RemoveUserFromHistoryUseCase _removeUserFromHistoryUseCase;
+  final SearchHistoryUserUseCase _searchHistoryUserUseCase;
 
   UserSearchHistoryBloc({
     required GetHistoryUsersUseCase getHistoryUsersUseCase,
     required ClearHistoryUsersUseCase clearHistoryUsersUseCase,
     required RemoveUserFromHistoryUseCase removeUserFromHistoryUseCase,
+    required SearchHistoryUserUseCase searchHistoryUserUseCase,
   })  : _getHistoryUsersUseCase = getHistoryUsersUseCase,
         _clearHistoryUsersUseCase = clearHistoryUsersUseCase,
         _removeUserFromHistoryUseCase = removeUserFromHistoryUseCase,
+        _searchHistoryUserUseCase = searchHistoryUserUseCase,
         super(const UserSearchHistoryState()) {
     on<GetHistoryUsersEvent>(_getHistoryUsers);
-    on<SearchHistoryClearEvent>(_clearingSearchHistory);
+    on<ClearSearchHistoryEvent>(_clearingSearchHistory);
     on<RemoveSearchUserEvent>(_removeSearchUser);
+    on<SearchUserEvent>(_searchUser);
   }
 
   Future<void> _getHistoryUsers(
@@ -55,7 +60,7 @@ class UserSearchHistoryBloc
   }
 
   Future<void> _clearingSearchHistory(
-    SearchHistoryClearEvent event,
+    ClearSearchHistoryEvent event,
     Emitter<UserSearchHistoryState> emit,
   ) async {
     try {
@@ -89,6 +94,27 @@ class UserSearchHistoryBloc
       emit(state.copyWith(users: users));
     } catch (e) {
       emit(state.copyWith(status: LogicStateStatus.error));
+    }
+  }
+
+  Future<void> _searchUser(
+    SearchUserEvent event,
+    Emitter<UserSearchHistoryState> emit,
+  ) async {
+    try {
+      final searchText = event.text.trim().split(' ');
+      final searchParams = searchText.length < 2
+          ? SearchHistoryUserParams(firstName: searchText.firstOrNull ?? '')
+          : SearchHistoryUserParams(
+              firstName: searchText.first,
+              lastName: searchText[1],
+            );
+
+      final users = await _searchHistoryUserUseCase(searchParams);
+
+      emit(state.copyWith(users: users));
+    } catch (e, s) {
+      print('$e, $s');
     }
   }
 }
