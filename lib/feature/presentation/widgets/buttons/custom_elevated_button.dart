@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_user_project/common/theme/app_icons.dart';
+import 'package:test_user_project/common/theme/app_theme_import.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final IconData icon;
@@ -29,7 +29,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Icon(icon, color: Colors.white),
+      child: Icon(icon, color: AppColors.white),
     );
   }
 }

@@ -4,9 +4,9 @@ import 'package:routemaster/routemaster.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/logic/users_list_bloc.dart';
+import 'package:test_user_project/feature/presentation/pages/users_list/widgets/shimmer_card.dart';
 import 'package:test_user_project/feature/presentation/pages/users_list/widgets/user_card.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
-import 'package:test_user_project/feature/presentation/pages/users_list/widgets/shimmer_card.dart';
 
 class UsersListScreen extends StatelessWidget {
   const UsersListScreen({super.key});

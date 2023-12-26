@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:test_user_project/common/theme/app_colors.dart';
+import 'package:test_user_project/common/theme/app_theme_import.dart';
 import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/screens/user_details_screen.dart';
 import 'package:test_user_project/feature/presentation/widgets/cached_network_image_widget.dart';
@@ -27,8 +29,8 @@ class UserListTile extends StatelessWidget {
           SlidableAction(
             onPressed: (_) async => await deleteHistory(),
             backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
+            foregroundColor: AppColors.white,
+            icon: AppIcons.delete,
             label: 'Удалить',
           ),
         ],

@@ -6,9 +6,9 @@ import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/service_locator/injection.dart';
 import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/presentation/pages/user_details/logic/user_details_bloc.dart';
+import 'package:test_user_project/feature/presentation/pages/user_details/widgets/shimmer_user_details_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/cached_network_image_widget.dart';
 import 'package:test_user_project/feature/presentation/widgets/error_status_widget.dart';
-import 'package:test_user_project/feature/presentation/pages/user_details/widgets/shimmer_user_details_widget.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   final UserEntity user;
