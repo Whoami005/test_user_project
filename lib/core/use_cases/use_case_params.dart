@@ -6,3 +6,12 @@ class EmptyUseCaseParams extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class NumUseCaseParams extends Equatable {
+  final int number;
+
+  const NumUseCaseParams(this.number);
+
+  @override
+  List<Object?> get props => [number];
+}

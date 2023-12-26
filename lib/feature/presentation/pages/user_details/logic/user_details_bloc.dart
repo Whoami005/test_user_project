@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:test_user_project/core/enums/logic_state_status.dart';
 import 'package:test_user_project/core/error/exception.dart';
+import 'package:test_user_project/core/use_cases/use_case_params.dart';
 import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/feature/domain/use_cases/search_user_use_case.dart';
 
@@ -29,7 +30,7 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
     try {
       emit(state.copyWith(status: LogicStateStatus.loading));
 
-      final response = await _searchUserUseCase(event.userId);
+      final response = await _searchUserUseCase(NumUseCaseParams(event.userId));
 
       emit(state.copyWith(
         status: LogicStateStatus.success,

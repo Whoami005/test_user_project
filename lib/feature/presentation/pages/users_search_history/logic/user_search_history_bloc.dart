@@ -89,7 +89,7 @@ class UserSearchHistoryBloc
     try {
       final users = [...state.users]..remove(event.user);
 
-      await _removeUserFromHistoryUseCase(event.user.id);
+      await _removeUserFromHistoryUseCase(NumUseCaseParams(event.user.id));
 
       emit(state.copyWith(users: users));
     } catch (e) {
@@ -103,7 +103,7 @@ class UserSearchHistoryBloc
   ) async {
     try {
       final searchText = event.text.trim().split(' ');
-      final searchParams = searchText.length < 2
+      final searchParams = searchText.length <= 1
           ? SearchHistoryUserParams(firstName: searchText.firstOrNull ?? '')
           : SearchHistoryUserParams(
               firstName: searchText.first,
@@ -113,8 +113,8 @@ class UserSearchHistoryBloc
       final users = await _searchHistoryUserUseCase(searchParams);
 
       emit(state.copyWith(users: users));
-    } catch (e, s) {
-      print('$e, $s');
+    } catch (e) {
+      emit(state.copyWith(status: LogicStateStatus.error));
     }
   }
 }
