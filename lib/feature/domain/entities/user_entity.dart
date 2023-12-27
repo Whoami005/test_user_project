@@ -1,16 +1,15 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:objectbox/objectbox.dart';
+class UserEntity {
+  final int id;
+  final String email;
+  final String firstName;
+  final String lastName;
+  final String avatar;
 
-part 'user_entity.freezed.dart';
-
-@freezed
-class UserEntity with _$UserEntity {
-  @Entity(realClass: UserEntity)
-  const factory UserEntity({
-    @Id(assignable: true) required int id,
-    @Default('') String email,
-    @Default('') String firstName,
-    @Default('') String lastName,
-    @Default('') String avatar,
-  }) = _UserEntity;
+  const UserEntity({
+    required this.id,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+    required this.avatar,
+  });
 }

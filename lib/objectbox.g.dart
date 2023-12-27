@@ -20,33 +20,33 @@ export 'package:objectbox/objectbox.dart'; // so that callers only have to impor
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(1, 4757483652658731913),
+      id: const IdUid(3, 6209593859875787365),
       name: 'UserEntity',
-      lastPropertyId: const IdUid(5, 450546220080160818),
+      lastPropertyId: const IdUid(5, 1194787146000118145),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 5731426507785203799),
+            id: const IdUid(1, 1653335585058612223),
             name: 'id',
             type: 6,
             flags: 129),
         ModelProperty(
-            id: const IdUid(2, 7251033471247118180),
+            id: const IdUid(2, 8112220611847805465),
             name: 'email',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(3, 580636645476732575),
+            id: const IdUid(3, 7331163876947991259),
             name: 'firstName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 6784619507916046391),
+            id: const IdUid(4, 4766817910201923088),
             name: 'lastName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(5, 450546220080160818),
+            id: const IdUid(5, 1194787146000118145),
             name: 'avatar',
             type: 9,
             flags: 0)
@@ -82,13 +82,24 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 4757483652658731913),
+      lastEntityId: const IdUid(3, 6209593859875787365),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [],
+      retiredEntityUids: const [4757483652658731913, 4668355631106914487],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [
+        5731426507785203799,
+        7251033471247118180,
+        580636645476732575,
+        6784619507916046391,
+        450546220080160818,
+        5997136401810194726,
+        248780479787910147,
+        3914884270754571206,
+        527674353688191537,
+        7335320123129181677
+      ],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,

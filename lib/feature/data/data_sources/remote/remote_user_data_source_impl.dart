@@ -19,9 +19,9 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
     return await dio.get<_ResponseType>(url).then((response) {
       final data = (response.data?['data'] ?? []) as List;
-      fromJson(_ResponseType user) => UserModel.fromJson(user).toEntity();
+      fromJson(_ResponseType user) => UserModel.fromJson(user);
 
-      final users = <UserEntity>[for (final user in data) fromJson(user)];
+      final users = <UserModel>[for (final user in data) fromJson(user)];
 
       return users;
     }, onError: (e) {
@@ -38,7 +38,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     return await dio.get<_ResponseType>(url).then((response) {
       final data = (response.data?['data'] ?? {}) as _ResponseType;
 
-      return UserModel.fromJson(data).toEntity();
+      return UserModel.fromJson(data);
     }, onError: (e) {
       final isDioException = e is DioException;
 

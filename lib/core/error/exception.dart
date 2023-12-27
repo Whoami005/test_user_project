@@ -1,7 +1,12 @@
-sealed class AppException implements Exception {
+import 'package:equatable/equatable.dart';
+
+sealed class AppException extends Equatable implements Exception {
   final String message;
 
   const AppException({required this.message});
+
+  @override
+  List<Object?> get props => [message];
 
   static AppException errorHandler(Object error) {
     return switch (error) {

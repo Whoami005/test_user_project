@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:test_user_project/feature/data/data_sources/local_user_data_source.dart';
+import 'package:test_user_project/feature/data/models/user_model.dart';
 import 'package:test_user_project/feature/domain/entities/user_entity.dart';
 import 'package:test_user_project/objectbox.g.dart';
 
@@ -10,8 +11,20 @@ class LocalUserDataSourceImpl implements LocalUserDataSource {
   const LocalUserDataSourceImpl({required this.store});
 
   @override
-  Future<List<UserEntity>> getUsersFromCache() async =>
-      store.box<UserEntity>().getAll();
+  Future<List<UserEntity>> getUsersFromCache() async {
+    final data = store.box<UserEntity>().getAll();
+    fromModel(UserEntity user) => UserModel(
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          avatar: user.avatar,
+        );
+
+    final users = <UserModel>[for (final user in data) fromModel(user)];
+
+    return users;
+  }
 
   @override
   Future<void> userToCache(UserEntity user) async =>
