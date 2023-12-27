@@ -152,7 +152,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Entity(realClass: UserEntity)
+@Entity(realClass: UserModel)
 class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
       {@Id(assignable: true) required this.id,

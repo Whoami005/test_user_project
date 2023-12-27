@@ -11,41 +11,43 @@ class LocalUserDataSourceImpl implements LocalUserDataSource {
   const LocalUserDataSourceImpl({required this.store});
 
   @override
-  Future<List<UserEntity>> getUsersFromCache() async {
-    final data = store.box<UserEntity>().getAll();
-    fromModel(UserEntity user) => UserModel(
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          avatar: user.avatar,
-        );
-
-    final users = <UserModel>[for (final user in data) fromModel(user)];
-
-    return users;
-  }
+  Future<List<UserEntity>> getUsersFromCache() async =>
+      store.box<UserModel>().getAll();
 
   @override
   Future<void> userToCache(UserEntity user) async =>
-      store.box<UserEntity>().put(user);
+      store.box<UserModel>().put(UserModel(
+            id: user.id,
+            email: user.email,
+            lastName: user.lastName,
+            firstName: user.firstName,
+            avatar: user.avatar,
+          ));
 
   @override
-  Future<void> clearCache() async => store.box<UserEntity>().removeAll();
+  Future<void> clearCache() async => store.box<UserModel>().removeAll();
 
   @override
-  Future<void> removeUser(int id) async => store.box<UserEntity>().remove(id);
+  Future<void> removeUser(int id) async => store.box<UserModel>().remove(id);
 
   @override
   Future<List<UserEntity>> searchUser({
     required String firstName,
     String lastName = '',
   }) async {
+    firstNameContains(String text) =>
+        UserModel_.firstName.contains(text, caseSensitive: false);
+    lastNameContains(String text) =>
+        UserModel_.lastName.contains(text, caseSensitive: false);
+
+    final correctOrderConditions =
+        firstNameContains(firstName).and(lastNameContains(lastName));
+    final reverseOrderConditions =
+        firstNameContains(lastName).and(lastNameContains(firstName));
+
     final query = store
-        .box<UserEntity>()
-        .query(UserEntity_.firstName
-            .contains(firstName, caseSensitive: false)
-            .and(UserEntity_.lastName.contains(lastName, caseSensitive: false)))
+        .box<UserModel>()
+        .query(correctOrderConditions.or(reverseOrderConditions))
         .build();
 
     final users = query.find();

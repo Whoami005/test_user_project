@@ -106,12 +106,12 @@ class UserSearchHistoryBloc
   ) async {
     try {
       final searchText = event.text.trim().split(' ');
-      final searchParams = searchText.length <= 1
-          ? SearchHistoryUserParams(firstName: searchText.firstOrNull ?? '')
-          : SearchHistoryUserParams(
-              firstName: searchText.first,
-              lastName: searchText[1],
-            );
+      final searchParams = switch (searchText) {
+        [String name, String lastName, ...] =>
+          SearchHistoryUserParams(firstName: name, lastName: lastName),
+        [String name] => SearchHistoryUserParams(firstName: name),
+        _ => const SearchHistoryUserParams(),
+      };
 
       final users = await _searchHistoryUserUseCase(searchParams);
 

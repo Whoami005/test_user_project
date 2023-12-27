@@ -14,39 +14,39 @@ import 'package:objectbox/internal.dart'; // generated code can access "internal
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'feature/domain/entities/user_entity.dart';
+import 'feature/data/models/user_model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(3, 6209593859875787365),
-      name: 'UserEntity',
-      lastPropertyId: const IdUid(5, 1194787146000118145),
+      id: const IdUid(4, 3900410519241616910),
+      name: 'UserModel',
+      lastPropertyId: const IdUid(5, 8500016300558578825),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 1653335585058612223),
+            id: const IdUid(1, 475197396593964210),
             name: 'id',
             type: 6,
             flags: 129),
         ModelProperty(
-            id: const IdUid(2, 8112220611847805465),
+            id: const IdUid(2, 3348813136196760302),
             name: 'email',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(3, 7331163876947991259),
+            id: const IdUid(3, 1355173894831371420),
             name: 'firstName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 4766817910201923088),
+            id: const IdUid(4, 5243686289316430646),
             name: 'lastName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(5, 1194787146000118145),
+            id: const IdUid(5, 8500016300558578825),
             name: 'avatar',
             type: 9,
             flags: 0)
@@ -82,11 +82,15 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(3, 6209593859875787365),
+      lastEntityId: const IdUid(4, 3900410519241616910),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [4757483652658731913, 4668355631106914487],
+      retiredEntityUids: const [
+        4757483652658731913,
+        4668355631106914487,
+        6209593859875787365
+      ],
       retiredIndexUids: const [],
       retiredPropertyUids: const [
         5731426507785203799,
@@ -98,7 +102,12 @@ ModelDefinition getObjectBoxModel() {
         248780479787910147,
         3914884270754571206,
         527674353688191537,
-        7335320123129181677
+        7335320123129181677,
+        1653335585058612223,
+        8112220611847805465,
+        7331163876947991259,
+        4766817910201923088,
+        1194787146000118145
       ],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -106,21 +115,21 @@ ModelDefinition getObjectBoxModel() {
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    UserEntity: EntityDefinition<UserEntity>(
+    UserModel: EntityDefinition<UserModel>(
         model: _entities[0],
-        toOneRelations: (UserEntity object) => [],
-        toManyRelations: (UserEntity object) => {},
-        getId: (UserEntity object) => object.id,
-        setId: (UserEntity object, int id) {
+        toOneRelations: (UserModel object) => [],
+        toManyRelations: (UserModel object) => {},
+        getId: (UserModel object) => object.id,
+        setId: (UserModel object, int id) {
           if (object.id != id) {
-            throw ArgumentError('Field UserEntity.id is read-only '
+            throw ArgumentError('Field UserModel.id is read-only '
                 '(final or getter-only) and it was declared to be self-assigned. '
                 'However, the currently inserted object (.id=${object.id}) '
                 "doesn't match the inserted ID (ID $id). "
                 'You must assign an ID before calling [box.put()].');
           }
         },
-        objectToFB: (UserEntity object, fb.Builder fbb) {
+        objectToFB: (UserModel object, fb.Builder fbb) {
           final emailOffset = fbb.writeString(object.email);
           final firstNameOffset = fbb.writeString(object.firstName);
           final lastNameOffset = fbb.writeString(object.lastName);
@@ -147,7 +156,7 @@ ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 10, '');
           final avatarParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 12, '');
-          final object = UserEntity(
+          final object = UserModel(
               id: idParam,
               email: emailParam,
               firstName: firstNameParam,
@@ -161,25 +170,24 @@ ModelDefinition getObjectBoxModel() {
   return ModelDefinition(model, bindings);
 }
 
-/// [UserEntity] entity fields to define ObjectBox queries.
-class UserEntity_ {
-  /// see [UserEntity.id]
-  static final id =
-      QueryIntegerProperty<UserEntity>(_entities[0].properties[0]);
+/// [UserModel] entity fields to define ObjectBox queries.
+class UserModel_ {
+  /// see [UserModel.id]
+  static final id = QueryIntegerProperty<UserModel>(_entities[0].properties[0]);
 
-  /// see [UserEntity.email]
+  /// see [UserModel.email]
   static final email =
-      QueryStringProperty<UserEntity>(_entities[0].properties[1]);
+      QueryStringProperty<UserModel>(_entities[0].properties[1]);
 
-  /// see [UserEntity.firstName]
+  /// see [UserModel.firstName]
   static final firstName =
-      QueryStringProperty<UserEntity>(_entities[0].properties[2]);
+      QueryStringProperty<UserModel>(_entities[0].properties[2]);
 
-  /// see [UserEntity.lastName]
+  /// see [UserModel.lastName]
   static final lastName =
-      QueryStringProperty<UserEntity>(_entities[0].properties[3]);
+      QueryStringProperty<UserModel>(_entities[0].properties[3]);
 
-  /// see [UserEntity.avatar]
+  /// see [UserModel.avatar]
   static final avatar =
-      QueryStringProperty<UserEntity>(_entities[0].properties[4]);
+      QueryStringProperty<UserModel>(_entities[0].properties[4]);
 }

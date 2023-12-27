@@ -7,7 +7,7 @@ part 'user_model.g.dart';
 
 @freezed
 class UserModel extends UserEntity with _$UserModel {
-  @Entity(realClass: UserEntity)
+  @Entity(realClass: UserModel)
   const factory UserModel({
     @Id(assignable: true) required int id,
     @Default('') String email,
